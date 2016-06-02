@@ -77,6 +77,8 @@ use Inpsyde\Filter\AbstractFilter;
 class YourFilter extends AbstractFilter {
 
     /**
+     * Optional: set some options, which can be overwritten by constructor.
+      
      * @var array
      */
     protected $options = [
@@ -90,13 +92,16 @@ class YourFilter extends AbstractFilter {
 
 }
 
-$filter = new My\Own\Filter\YourFilter();
+// Optional: set "new value" to Filter.
+$options = [ 'key' => 'new value' ];
+
+$filter = new YourFilter( $options );
 $value = $filter->filter( 'my value' );
 ```
 
 ## Factory
 
-The library comes with an `FilterFactory` which allows you to create instances of new Filters.
+The library comes with a `FilterFactory` which allows you to create instances of new Filters.
 
 ```php
 $factory = new \Inpsyde\Filter\FilterFactory();
