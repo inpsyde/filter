@@ -98,14 +98,14 @@ $value = $filter->filter( 'my value' );
 
 The library comes with an `FilterFactory` which allows you to create instances of new Filters.
 
-```
+```php
 $factory = new \Inpsyde\Filter\FilterFactory();
 $filter = $factory->create( 'DateTime' ); // returns instance of \Inpsyde\Filter\DateTime
 ```
 
 The factory is also able to create instances of external classe, if they implement the `\Inpsyde\Filter\FilterInterface`:
 
-```
+```php
 $factory = new \Inpsyde\Filter\FilterFactory();
 $filter = $factory->create( My\Own\Filter\YourFilter::class ); // Creates an instance of your own filter.
 ```
