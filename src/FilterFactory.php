@@ -2,8 +2,11 @@
 
 namespace Inpsyde\Filter;
 
-use Inpsyde\Validator\Date;
-
+/**
+ * Class FilterFactory
+ *
+ * @package Inpsyde\Filter
+ */
 class FilterFactory {
 
 	/**
@@ -11,7 +14,7 @@ class FilterFactory {
 	 */
 	private $classes = [
 		'ArrayValue'                        => ArrayValue::class,
-		'DateTime'                          => Date::class,
+		'DateTime'                          => DateTime::class,
 		'WordPress\Absint'                  => WordPress\Absint::class,
 		'WordPress\AutoP'                   => WordPress\AutoP::class,
 		'WordPress\EscHtml'                 => WordPress\EscHtml::class,
