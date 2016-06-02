@@ -39,6 +39,8 @@ class FilterFactory {
 	 * @param       $type
 	 * @param array $properties
 	 *
+	 * @throws \InvalidArgumentException if Filter of given $type is not found.
+	 * 
 	 * @return FilterInterface
 	 */
 	public function create( $type, array $properties = [ ] ) {
@@ -50,13 +52,11 @@ class FilterFactory {
 
 			return new $class( $properties );
 		} else if ( class_exists( $type ) ) {
-
 			$class = new $type( $properties );
 			if ( $class instanceof FilterInterface ) {
 
 				return $class;
 			}
-
 		}
 
 		throw new \InvalidArgumentException(
