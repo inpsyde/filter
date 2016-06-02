@@ -69,6 +69,8 @@ In addition, there are filters which are wrappers for well known WordPress-funct
 
 ## Create your own Filter
 
+### File `My\Own\Filter\YourFilter.php`
+
 ```php
 namespace My\Own\Filter;
 
@@ -85,13 +87,20 @@ class YourFilter extends AbstractFilter {
         'key' => 'value'
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     public function filter( $value ) {
        // do something
        return $value;
     }
 
 }
+```
 
+### Usage
+
+```php
 // Optional: set "new value" to Filter.
 $options = [ 'key' => 'new value' ];
 
