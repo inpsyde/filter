@@ -8,6 +8,7 @@ This package provides a collection of filters for WordPress.
 * [Usage](#usage)
     * [Changing Options](#changing-options)
     * [Available Filters](#available-filters)
+* [Factory](#factory)
 * [Create your own Filter](#create-your-own-filter)
 * [Other Notes](#other-notes)
     * [Crafted by Inpsyde](#crafted-by-inpsyde)
@@ -66,7 +67,6 @@ In addition, there are filters which are wrappers for well known WordPress-funct
 * `WordPress\StripTags`
 * `WordPress\Unslash`
 
-
 ## Create your own Filter
 
 ```php
@@ -92,6 +92,22 @@ class YourFilter extends AbstractFilter {
 
 $filter = new My\Own\Filter\YourFilter();
 $value = $filter->filter( 'my value' );
+```
+
+## Factory
+
+The library comes with an `FilterFactory` which allows you to create instances of new Filters.
+
+```
+$factory = new \Inpsyde\Filter\FilterFactory();
+$filter = $factory->create( 'DateTime' ); // returns instance of \Inpsyde\Filter\DateTime
+```
+
+The factory is also able to create instances of external classe, if they implement the `\Inpsyde\Filter\FilterInterface`:
+
+```
+$factory = new \Inpsyde\Filter\FilterFactory();
+$filter = $factory->create( My\Own\Filter\YourFilter::class ); // Creates an instance of your own filter.
 ```
 
 ## Other Notes
