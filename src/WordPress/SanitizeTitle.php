@@ -7,7 +7,7 @@ use Inpsyde\Filter\AbstractFilter;
 /**
  * Class SanitizeKey
  *
- * @package Inpsyde\Filter\WordPRess
+ * @package Inpsyde\Filter\WordPress
  */
 class SanitizeTitle extends AbstractFilter {
 

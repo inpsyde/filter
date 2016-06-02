@@ -8,7 +8,7 @@ use Inpsyde\Filter\AbstractFilter;
 /**
  * Class StripTags
  *
- * @package Inpsyde\Filter\WordPRess
+ * @package Inpsyde\Filter\WordPress
  */
 class StripTags extends AbstractFilter {
 

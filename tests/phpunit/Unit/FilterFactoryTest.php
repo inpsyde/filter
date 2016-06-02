@@ -13,7 +13,6 @@ class FilterFactoryTest extends \PHPUnit_Framework_TestCase {
 		$factory  = new FilterFactory();
 
 		$this->assertInstanceOf( $expected, $factory->create( 'ArrayValue' ) );
-
 	}
 
 	/**
@@ -21,8 +20,11 @@ class FilterFactoryTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_external_filter() {
 
-		$factory = new FilterFactory();
-		$factory->create( Fake\WithOptionsFilter::class );
+		$factory  = new FilterFactory();
+		$expected = Fake\WithOptionsFilter::class;
+
+		$this->assertInstanceOf( $expected, $factory->create( $expected ) );
+		$this->assertInstanceOf( 'Inpsyde\Filter\FilterInterface', $factory->create( $expected ) );
 	}
 
 	/**

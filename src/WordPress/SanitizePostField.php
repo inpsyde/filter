@@ -8,7 +8,7 @@ use Inpsyde\Filter\AbstractFilter;
 /**
  * Class SanitizePostField
  *
- * @package Inpsyde\Filter\WordPRess
+ * @package Inpsyde\Filter\WordPress
  */
 class SanitizePostField extends AbstractFilter {
 

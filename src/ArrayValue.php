@@ -14,14 +14,14 @@ class ArrayValue extends AbstractFilter {
 	 *
 	 * @var FilterInterface[]
 	 */
-	private $filters = [];
+	private $filters = [ ];
 
 	/**
 	 * Contains a group of filters mapped to an array key.
 	 *
 	 * @var array
 	 */
-	private $filters_by_key = [];
+	private $filters_by_key = [ ];
 
 	/**
 	 * Adding filters to an array key.
@@ -38,7 +38,7 @@ class ArrayValue extends AbstractFilter {
 		} else {
 
 			if ( ! array_key_exists( $array_key, $this->filters_by_key ) ) {
-				$this->filters_by_key[ $array_key ] = [];
+				$this->filters_by_key[ $array_key ] = [ ];
 			}
 			$this->filters_by_key[ $array_key ][] = $filter;
 		}

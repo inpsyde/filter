@@ -8,7 +8,7 @@ use Inpsyde\Filter\AbstractFilter;
 /**
  * Class StringTrim
  *
- * @package Inpsyde\Filter\WordPRess
+ * @package Inpsyde\Filter\WordPress
  */
 class NormalizeWhitespace extends AbstractFilter {
 

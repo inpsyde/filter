@@ -8,7 +8,7 @@ use Inpsyde\Filter\AbstractFilter;
 /**
  * Class Unslash
  *
- * @package Inpsyde\Filter\WordPRess
+ * @package Inpsyde\Filter\WordPress
  */
 class Unslash extends AbstractFilter {
 

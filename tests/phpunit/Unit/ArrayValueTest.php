@@ -77,6 +77,38 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $input, $testee->filter( $input ) );
 	}
 
+	public function test_add_multiple_filter_by_key() {
+
+		$key_1 = 'key1';
+		$key_2 = 'key2';
+
+		$input    = [
+			$key_1 => 'input_value_1',
+			$key_2 => 'input_value_2'
+		];
+		$expected = [
+			$key_1 => 'expected_value_1',
+			$key_2 => 'expected_value_2'
+		];
+
+		/** @var \Inpsyde\Filter\FilterInterface $mock */
+		$mock_1 = $this->get_mock();
+		$mock_1->method( 'filter' )
+		       ->with( $input[ $key_1 ] )
+		       ->will( $this->returnValue( $expected[ $key_1 ] ) );
+
+		$mock_2 = $this->get_mock();
+		$mock_2->method( 'filter' )
+		       ->with( $input[ $key_2 ] )
+		       ->will( $this->returnValue( $expected[ $key_2 ] ) );
+
+		$testee = new ArrayValue();
+		$testee->add_filter( $mock_1, $key_1 );
+		$testee->add_filter( $mock_2, $key_2 );
+
+		$this->assertEquals( $expected, $testee->filter( $input ) );
+	}
+
 	/**
 	 * @return \PHPUnit_Framework_MockObject_MockObject
 	 */
