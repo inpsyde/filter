@@ -6,114 +6,107 @@ use Inpsyde\Filter\ArrayValue;
 
 class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * Basic test with no filters.
+	 */
 	public function test_basic() {
 
-		$this->assertInstanceOf( '\Inpsyde\Filter\FilterInterface', new ArrayValue() );
+		$expected = [ 'key' => 'value', ];
+		$testee   = new ArrayValue();
+		$this->assertSame( $expected, $testee->filter( $expected ) );
 	}
 
 	/**
-	 * Basic test for error messages if nothing is validated.
+	 * Tests the different input types and expected result.
+	 *
+	 * @dataProvider provide__value_types
 	 */
-	public function test_add_filter() {
-
-		$expected = 'test';
-
-		/** @var \Inpsyde\Filter\FilterInterface $mock */
-		$mock = $this->get_mock();
-		$mock->method( 'filter' )
-		     ->with( $expected )
-		     ->will( $this->returnValue( $expected ) );
+	public function test__invalid_value_type( $input, $expected ) {
 
 		$testee = new ArrayValue();
-		$testee->add_filter( $mock );
-
-		$this->assertEquals( [ $expected ], $testee->filter( [ $expected ] ) );
+		$this->assertEquals( $expected, $testee->filter( $input ) );
 	}
 
 	/**
-	 * Basic test for error messages if nothing is validated.
+	 * Returns a dataSet of different input values with excepted result.
+	 *
+	 * @return array
 	 */
-	public function test_add_filter_by_key() {
+	public function provide__value_types() {
 
-		$expected_value = 'value';
-		$expected_key   = 'key';
-		$expected       = [ $expected_key => $expected_value ];
+		$t = $this->getMock( 'Traversable' );
 
-		/** @var \Inpsyde\Filter\FilterInterface $mock */
-		$mock = $this->get_mock();
-		$mock->method( 'filter' )
-		     ->with( $expected_value )
-		     ->will( $this->returnValue( $expected_value ) );
-
-		$testee = new ArrayValue();
-		$testee->add_filter( $mock, $expected_key );
-
-		$this->assertEquals( $expected, $testee->filter( $expected ) );
-	}
-
-	/**
-	 * Basic test for error messages if nothing is validated.
-	 */
-	public function test_add_multiple_filter() {
-
-		$expected = 'test';
-
-		/** @var \Inpsyde\Filter\FilterInterface $mock */
-		$mock_1 = $this->get_mock();
-		$mock_1->method( 'filter' )
-		       ->with( $expected )
-		       ->will( $this->returnValue( $expected ) );
-
-		$mock_2 = $this->get_mock();
-		$mock_2->method( 'filter' )
-		       ->with( $expected )
-		       ->will( $this->returnValue( $expected ) );
-
-		$testee = new ArrayValue();
-		$testee->add_filter( $mock_1 );
-		$testee->add_filter( $mock_2 );
-
-		$input = [ $expected, $expected ];
-		$this->assertEquals( $input, $testee->filter( $input ) );
-	}
-
-	public function test_add_multiple_filter_by_key() {
-
-		$key_1 = 'key1';
-		$key_2 = 'key2';
-
-		$input    = [
-			$key_1 => 'input_value_1',
-			$key_2 => 'input_value_2'
-		];
-		$expected = [
-			$key_1 => 'expected_value_1',
-			$key_2 => 'expected_value_2'
+		return [
+			'valid_array'       => [ [ 'key' => 'value' ], [ 'key' => 'value' ] ],
+			'valid_traversable' => [ $t, $t ],
+			'string'            => [ '', '' ],
+			'int'               => [ 1, 1 ],
+			'boolean'           => [ TRUE, TRUE ]
 		];
 
-		/** @var \Inpsyde\Filter\FilterInterface $mock */
-		$mock_1 = $this->get_mock();
-		$mock_1->method( 'filter' )
-		       ->with( $input[ $key_1 ] )
-		       ->will( $this->returnValue( $expected[ $key_1 ] ) );
+	}
 
-		$mock_2 = $this->get_mock();
-		$mock_2->method( 'filter' )
-		       ->with( $input[ $key_2 ] )
-		       ->will( $this->returnValue( $expected[ $key_2 ] ) );
+	/**
+	 * Basic test with one filter to filter all values.
+	 */
+	public function test_basic_add_filter() {
+
+		$input          = [ 'key' => 'value', ];
+		$expected_value = 'value1';
+		$expected       = [ 'key' => $expected_value ];
 
 		$testee = new ArrayValue();
-		$testee->add_filter( $mock_1, $key_1 );
-		$testee->add_filter( $mock_2, $key_2 );
+		$testee->add_filter( $this->getMockFilter( $expected_value ) );
+
+		$this->assertSame( $expected, $testee->filter( $input ) );
+	}
+
+	/**
+	 * Test multiple filters.
+	 */
+	public function test_multiple_add_filter() {
+
+		$input          = [ 'key' => 'value', ];
+		$expected_value = 'value1';
+		$expected       = [ 'key' => $expected_value ];
+
+		$testee = new ArrayValue();
+		$testee->add_filter( $this->getMockFilter( 'value' ) );
+		$testee->add_filter( $this->getMockFilter( $expected_value ) );
 
 		$this->assertEquals( $expected, $testee->filter( $input ) );
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * Basic test with 2 filters, where the second filter should not be called, because the array-key does not exists.
 	 */
-	private function get_mock() {
+	public function test_basic_add_filter_by_key() {
 
-		return $this->getMock( '\Inpsyde\Filter\FilterInterface' );
+		$input          = [ 'key' => 'value', ];
+		$expected_value = 'value1';
+		$expected       = [ 'key' => $expected_value ];
+
+		$testee = new ArrayValue();
+		$testee->add_filter_by_key( $this->getMockFilter( $expected_value ), 'key' );
+		$testee->add_filter_by_key( $this->getMockFilter( '', 0 ), 'some non existing key.' );
+
+		$this->assertEquals( $expected, $testee->filter( $input ) );
 	}
+
+	/**
+	 * @param string $return_value
+	 * @param int    $called
+	 *
+	 * @return \PHPUnit_Framework_MockObject_Builder_InvocationMocker
+	 */
+	private function getMockFilter( $return_value = '', $called = 1 ) {
+
+		$mock = $this->getMock( '\Inpsyde\Filter\FilterInterface' );
+		$mock->expects( new \PHPUnit_Framework_MockObject_Matcher_InvokedCount( $called ) )
+		     ->method( 'filter' )
+		     ->will( $this->returnValue( $return_value ) );
+
+		return $mock;
+	}
+
 }

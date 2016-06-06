@@ -5,7 +5,7 @@ namespace Inpsyde\Filter;
 /**
  * Class ArrayValue
  *
- * @package Inpsyde\Validator
+ * @package Inpsyde\Filter
  */
 class ArrayValue extends AbstractFilter {
 
@@ -24,72 +24,104 @@ class ArrayValue extends AbstractFilter {
 	private $filters_by_key = [ ];
 
 	/**
-	 * Adding filters to an array key.
+	 * Adding filters to filter all array-values.
 	 *
 	 * @param   FilterInterface $filter
-	 * @param   string          $array_key
 	 *
-	 * @return void
+	 * @return ArrayValue
 	 */
-	public function add_filter( FilterInterface $filter, $array_key = '' ) {
+	public function add_filter( FilterInterface $filter ) {
 
-		if ( $array_key === '' ) {
-			$this->filters[] = $filter;
-		} else {
+		$this->filters[] = $filter;
 
-			if ( ! array_key_exists( $array_key, $this->filters_by_key ) ) {
-				$this->filters_by_key[ $array_key ] = [ ];
-			}
-			$this->filters_by_key[ $array_key ][] = $filter;
+		return $this;
+	}
+
+	/**
+	 * Adding a filter grouped by array key.
+	 *
+	 * @throws Exception\InvalidArgumentException if type of $key is not scalar.
+	 *
+	 * @param FilterInterface    $filter
+	 * @param                    $key
+	 *
+	 * @return ArrayValue
+	 */
+	public function add_filter_by_key( FilterInterface $filter, $key ) {
+
+		if ( ! is_scalar( $key ) ) {
+			throw new Exception\InvalidArgumentException( 'key should be a scalar value.' );
 		}
+
+		$key = (string) $key;
+
+		if ( ! isset ( $this->filters_by_key[ $key ] ) ) {
+			$this->filters_by_key[ $key ] = [ ];
+		}
+
+		$this->filters_by_key[ $key ][] = $filter;
+
+		return $this;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function filter( $value ) {
+	public function filter( $values ) {
 
-		if ( empty( $value ) ) {
-			return $value;
+		if ( ! is_array( $values )&& ! $values instanceof \Traversable  ) {
+
+			return $values;
 		}
 
-		if ( ! is_array( $value ) ) {
-			$value = array( $value );
-		}
+		$values = $this->all_filters( $values );
+		$values = $this->filter_by_key( $values );
 
-		foreach ( $value as $key => $the_value ) {
-			if ( is_array( $the_value ) ) {
-				$the_value = $this->filter( $the_value );
-			}
-			$value[ $key ] = $this->do_filter( $key, $the_value );
-		}
-
-		return $value;
+		return $values;
 	}
 
 	/**
-	 * @param   string $key
-	 * @param   mixed  $value
+	 * @param mixed $values
 	 *
-	 * @return  mixed $value
+	 * @return mixed
 	 */
-	protected function do_filter( $key, $value ) {
+	private function all_filters( $values ) {
 
-		// filter by all filter without key.
-		foreach ( $this->filters as $filter ) {
-			$value = $filter->filter( $value );
-		}
-
-		// filter by key-filter
-		if ( array_key_exists( $key, $this->filters_by_key ) ) {
-			/** @var \Inpsyde\Filter\FilterInterface[] $filters */
-			$filters = $this->filters_by_key[ $key ];
-			foreach ( $filters as $filter ) {
-				$value = $filter->filter( $value );
+		foreach ( $values as $key => $value ) {
+			foreach ( $this->filters as $filter ) {
+				$values[ $key ] = $filter->filter( $value );
 			}
 		}
 
-		return $value;
+		return $values;
+	}
+
+	/**
+	 * Filters all values by array-key.
+	 *
+	 * @param   mixed $values
+	 *
+	 * @return  mixed $value
+	 */
+	protected function filter_by_key( $values ) {
+
+		if ( count( $this->filters_by_key ) < 1 ) {
+
+			return $values;
+		}
+
+		foreach ( $values as $key => $value ) {
+			if ( ! is_scalar( $value ) || ! isset( $this->filters_by_key[ $key ] ) ) {
+				continue;
+			}
+			/** @var FilterInterface[] */
+			$filters = $this->filters_by_key[ $key ];
+			foreach ( $filters as $filter ) {
+				$values[ $key ] = $filter->filter( $value );
+			}
+		}
+
+		return $values;
 	}
 
 }

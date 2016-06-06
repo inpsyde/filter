@@ -39,7 +39,7 @@ class FilterFactory {
 	 * @param       $type
 	 * @param array $properties
 	 *
-	 * @throws \InvalidArgumentException if Filter of given $type is not found.
+	 * @throws Exception\InvalidArgumentException if Filter of given $type is not found.
 	 * 
 	 * @return FilterInterface
 	 */
@@ -59,7 +59,7 @@ class FilterFactory {
 			}
 		}
 
-		throw new \InvalidArgumentException(
+		throw new Exception\InvalidArgumentException(
 			sprintf(
 				'The given class <code>%s</code> does not exists.',
 				$type
