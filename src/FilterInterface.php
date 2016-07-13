@@ -14,8 +14,6 @@ interface FilterInterface {
 	 *
 	 * @param  mixed $value
 	 *
-	 * @uses _doing_it_wrong if the given value is not the correct type.
-	 *
 	 * @return mixed
 	 */
 	public function filter( $value );
