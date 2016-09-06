@@ -42,7 +42,7 @@ class AbsintTest extends \PHPUnit_Framework_TestCase {
 
 		$filter = new Absint();
 
-		Monkey\Functions::when( '_doing_it_wrong' );
+		Monkey\Functions::expect('_doing_it_wrong');
 
 		Monkey\Functions::expect( 'absint' )
 		                ->with( $input )
