@@ -17,12 +17,7 @@ class Absint extends AbstractFilter {
 	public function filter( $value ) {
 
 		if ( ! is_scalar( $value ) || empty( $value ) ) {
-			
-			_doing_it_wrong(
-				__METHOD__,
-				'The given value is not scalar or empty,',
-				'0.1'
-			);
+			do_action( 'inpsyde.filter.error', 'The given value is not scalar or empty.', [ 'method' => __METHOD__, 'value' => $value ] );
 
 			return $value;
 		}

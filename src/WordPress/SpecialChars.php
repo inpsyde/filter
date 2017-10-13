@@ -26,12 +26,7 @@ class SpecialChars extends AbstractFilter {
 	public function filter( $value ) {
 
 		if ( ! is_string( $value ) || empty( $value ) ) {
-
-			_doing_it_wrong(
-				__METHOD__,
-				'The given value is not a string or empty,',
-				'0.1'
-			);
+			do_action( 'inpsyde.filter.error', 'The given value is not string or empty.', [ 'method' => __METHOD__, 'value' => $value ] );
 
 			return $value;
 		}

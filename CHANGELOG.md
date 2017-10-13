@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+* Added PHP 7.1 to `travis.yml`.
+* Replaced `_doing_it_wrong` with `do_action` to avoid unwanted output for empty input strings on filters.
+
 ## 1.0.1
 
 ### Fixed

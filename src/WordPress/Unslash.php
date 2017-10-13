@@ -4,7 +4,6 @@ namespace Inpsyde\Filter\WordPress;
 
 use Inpsyde\Filter\AbstractFilter;
 
-
 /**
  * Class Unslash
  *
@@ -18,6 +17,7 @@ class Unslash extends AbstractFilter {
 	public function filter( $value ) {
 
 		if ( ! is_scalar( $value ) || empty( $value ) ) {
+			do_action( 'inpsyde.filter.error', 'The given value is not scalar or empty.', [ 'method' => __METHOD__, 'value' => $value ] );
 
 			return $value;
 		}

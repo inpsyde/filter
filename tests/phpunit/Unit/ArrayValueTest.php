@@ -13,7 +13,7 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 
 		$expected = [ 'key' => 'value', ];
 		$testee   = new ArrayValue();
-		$this->assertSame( $expected, $testee->filter( $expected ) );
+		static::assertSame( $expected, $testee->filter( $expected ) );
 	}
 
 	/**
@@ -24,7 +24,7 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 	public function test__invalid_value_type( $input, $expected ) {
 
 		$testee = new ArrayValue();
-		$this->assertEquals( $expected, $testee->filter( $input ) );
+		static::assertEquals( $expected, $testee->filter( $input ) );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 		$testee = new ArrayValue();
 		$testee->add_filter( $this->getMockFilter( $expected_value ) );
 
-		$this->assertSame( $expected, $testee->filter( $input ) );
+		static::assertSame( $expected, $testee->filter( $input ) );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 		$testee->add_filter( $this->getMockFilter( 'value' ) );
 		$testee->add_filter( $this->getMockFilter( $expected_value ) );
 
-		$this->assertEquals( $expected, $testee->filter( $input ) );
+		static::assertEquals( $expected, $testee->filter( $input ) );
 	}
 
 	/**
@@ -90,7 +90,7 @@ class ArrayValueTest extends \PHPUnit_Framework_TestCase {
 		$testee->add_filter_by_key( $this->getMockFilter( $expected_value ), 'key' );
 		$testee->add_filter_by_key( $this->getMockFilter( '', 0 ), 'some non existing key.' );
 
-		$this->assertEquals( $expected, $testee->filter( $input ) );
+		static::assertEquals( $expected, $testee->filter( $input ) );
 	}
 
 	/**

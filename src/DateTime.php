@@ -25,6 +25,12 @@ class DateTime extends AbstractFilter {
 			$result = $this->normalize_date_time( $value );
 		}
 		catch ( \Exception $e ) {
+			do_action(
+				'inpsyde.filter.error',
+				'The given value caused an exception.',
+				[ 'method' => __METHOD__, 'exception' => $e, 'value' => $value ]
+			);
+
 			return '';
 		}
 

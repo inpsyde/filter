@@ -2,8 +2,8 @@
 
 namespace Inpsyde\Filter\Tests\Unit\WordPress;
 
-use \Inpsyde\Filter\WordPress\Absint;
 use Brain\Monkey;
+use Inpsyde\Filter\WordPress\Absint;
 
 class AbsintTest extends \PHPUnit_Framework_TestCase {
 
@@ -15,7 +15,7 @@ class AbsintTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 
 		parent::setUp();
-		Monkey::setUp();
+		Monkey::setUpWP();
 	}
 
 	/**
@@ -25,39 +25,36 @@ class AbsintTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function tearDown() {
 
-		Monkey::tearDown();
+		Monkey::tearDownWP();
 		parent::tearDown();
 	}
 
 	public function test_basic() {
 
-		$this->assertInstanceOf( '\Inpsyde\Filter\FilterInterface', new Absint() );
+		static::assertInstanceOf( '\Inpsyde\Filter\FilterInterface', new Absint() );
 	}
 
-	/**
-	 *
-	 * @dataProvider provide__filters
-	 */
-	public function test_filter( $input, $expected ) {
+	public function test_filter() {
 
-		$filter = new Absint();
-
-		Monkey\Functions::expect('_doing_it_wrong');
+		$expected = 1;
 
 		Monkey\Functions::expect( 'absint' )
-		                ->with( $input )
-		                ->andReturn( $expected );
+			->once()
+			->with( \Mockery::type( 'int' ) )
+			->andReturn( $expected );
 
-		$this->assertSame( $expected, $filter->filter( $input ) );
+		static::assertSame( $expected, ( new Absint() )->filter( $expected ) );
 	}
 
-	public function provide__filters() {
+	public function test_filter__non_scalar() {
 
-		return [
-			// input, expected
-			"valid"      => [ 1, 1 ],
-			"not_scalar" => [ [ ], [ ] ]
-		];
+		$expected = new \stdClass();
+
+		Monkey\WP\Actions::expectFired( 'inpsyde.filter.error' );
+
+		Monkey\Functions::expect( 'absint' )
+			->never();
+
+		static::assertSame( $expected, ( new Absint() )->filter( $expected ) );
 	}
-
 }

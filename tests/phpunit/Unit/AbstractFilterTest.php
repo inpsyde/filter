@@ -8,7 +8,7 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_basic() {
 
-		$this->assertInstanceOf( '\Inpsyde\Filter\FilterInterface', $this->create_stub() );
+		static::assertInstanceOf( '\Inpsyde\Filter\FilterInterface', $this->create_stub() );
 	}
 
 	/**
@@ -18,7 +18,7 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase {
 
 		/** @var \Inpsyde\Filter\AbstractFilter $stub */
 		$stub = $this->create_stub();
-		$this->assertEquals( [ ], $stub->get_options() );
+		static::assertEquals( [ ], $stub->get_options() );
 	}
 
 	/**
@@ -29,7 +29,7 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase {
 		$expceted = [ 'key' => 'new value' ];
 		$filter   = new WithOptionsFilter( $expceted );
 
-		$this->assertEquals( $expceted, $filter->get_options() );
+		static::assertEquals( $expceted, $filter->get_options() );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase {
 		     ->with( $value )
 		     ->will( $this->returnValue( $value ) );
 
-		$this->assertEquals( $value, $stub->filter( $value ) );
+		static::assertEquals( $value, $stub->filter( $value ) );
 	}
 
 	/**
