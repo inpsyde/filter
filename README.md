@@ -1,4 +1,4 @@
-# Inpsyde Filters
+# Inpsyde Filters [![Latest Stable Version](https://poser.pugx.org/inpsyde/filter/v/stable)](https://packagist.org/packages/inpsyde/filter) [![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges) [![Build Status](https://travis-ci.org/inpsyde/inpsyde-filter.svg?branch=master)](http://travis-ci.org/inpsyde/MetaboxOrchestra) [![License](https://poser.pugx.org/inpsyde/filter/license)](https://packagist.org/packages/inpsyde/filter)
 
 This package provides a collection of filters for WordPress. 
 
