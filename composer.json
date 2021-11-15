@@ -2,7 +2,7 @@
   "name": "inpsyde/filter",
   "description": "Inpsyde Filter library.",
   "type": "library",
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Christian Brückner",
