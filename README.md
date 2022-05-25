@@ -23,7 +23,7 @@ $ composer require --dev [--prefer-dist] inpsyde/filter
 ```
 
 ## Usage
-Each Filters filters a value with a given configuration. 
+Each filter filters a value with a given configuration. 
 
 ```php
 $filter = new Inpsyde\Filter\DateTime();
@@ -43,7 +43,7 @@ $value = $filter->filter( '1987-06-21' ); // 21.06.1987
 ```
 
 ### Available Filters
-Following basic Filters are available:
+Following basic filters are available:
 
 * `ArrayValue`
 * `DateTime`
@@ -110,14 +110,14 @@ $value = $filter->filter( 'my value' );
 
 ## Factory
 
-The library comes with a `FilterFactory` which allows you to create instances of new Filters.
+The library comes with a `FilterFactory` which allows you to create instances of new filters.
 
 ```php
 $factory = new \Inpsyde\Filter\FilterFactory();
 $filter = $factory->create( 'DateTime' ); // returns instance of \Inpsyde\Filter\DateTime
 ```
 
-The factory is also able to create instances of external classe, if they implement the `\Inpsyde\Filter\FilterInterface`:
+The factory is also able to create instances of external classes, if they implement the `\Inpsyde\Filter\FilterInterface`:
 
 ```php
 $factory = new \Inpsyde\Filter\FilterFactory();
