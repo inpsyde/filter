@@ -11,7 +11,6 @@ This package provides a collection of filters for WordPress.
 * [Create your own Filter](#create-your-own-filter)
 * [Factory](#factory)
 * [Other Notes](#other-notes)
-    * [Crafted by Inpsyde](#crafted-by-inpsyde)
     * [Bugs, technical hints or contribute](#bugs-technical-hints-or-contribute)
     * [License](#license)
     * [Changelog](#changelog)
@@ -126,17 +125,13 @@ $filter = $factory->create( My\Own\Filter\YourFilter::class ); // Creates an ins
 
 ## Other Notes
 
-### Crafted by Inpsyde
-    
-The team at [Inpsyde](https://www.inpsyde.com) is engineering the Web since 2006.
-
 ### Bugs, technical hints or contribute
 
 Please give us feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/inpsyde/Inpsyde-Filter).
 
 ### License
 
-Good news, this plugin is free for everyone! Since it's released under the [GPLv2+](https://github.com/inpsyde/Inpsyde-Filter/blob/master/LICENSE), you can use it free of charge on your personal or commercial blog.
+This repository is a free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE](./LICENSE) for complete license.
 
 ### Changelog
 
