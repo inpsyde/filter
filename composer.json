@@ -1,42 +1,48 @@
 {
-  "name": "inpsyde/filter",
-  "description": "Inpsyde Filter library.",
-  "type": "library",
-  "license": "GPL-2.0-or-later",
-  "authors": [
-    {
-      "name": "Christian Brückner",
-      "email": "chris@chrico.info",
-      "homepage": "https://www.chrico.info",
-      "role": "Developer"
+    "name": "inpsyde/filter",
+    "description": "Inpsyde Filter library.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "homepage": "https://syde.com/",
+            "email": "hello@syde.com",
+            "role": "Company"
+        },
+        {
+            "name": "Christian Brückner",
+            "email": "chris@chrico.info",
+            "homepage": "https://www.chrico.info",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://www.github.com/inpsyde/inpsyde-filter",
+        "issues": "https://www.github.com/inpsyde/inpsyde-filter/issues"
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "php": ">=5.5.0",
+        "brain/monkey": "~1.0",
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "~4.8|~5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inpsyde\\Filter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Inpsyde\\Filter\\Tests\\": "tests/phpunit/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "5.5.0"
+        }
     }
-  ],
-  "support": {
-    "source": "https://www.github.com/inpsyde/inpsyde-filter",
-    "issues": "https://www.github.com/inpsyde/inpsyde-filter/issues"
-  },
-  "require": {
-    "php": ">=5.5.0"
-  },
-  "require-dev": {
-    "php": ">=5.5.0",
-    "brain/monkey": "~1.0",
-    "mockery/mockery": "~0.9",
-    "phpunit/phpunit": "~4.8|~5.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Inpsyde\\Filter\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Inpsyde\\Filter\\Tests\\": "tests/phpunit/"
-    }
-  },
-  "config": {
-    "platform": {
-      "php": "5.5.0"
-    }
-  }
 }

@@ -12,7 +12,7 @@ This package provides a collection of filters for WordPress.
 * [Factory](#factory)
 * [Other Notes](#other-notes)
     * [Bugs, technical hints or contribute](#bugs-technical-hints-or-contribute)
-    * [License](#license)
+    * [Copyright and License](#copyright-and-license)
     * [Changelog](#changelog)
 
 ## Installation
@@ -129,9 +129,9 @@ $filter = $factory->create( My\Own\Filter\YourFilter::class ); // Creates an ins
 
 Please give us feedback, contribute and file technical bugs on [GitHub Repo](https://github.com/inpsyde/Inpsyde-Filter).
 
-### License
+### Copyright and License
 
-This repository is a free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE](./LICENSE) for complete license.
+This package is [free software](https://www.gnu.org/philosophy/free-sw.en.html) distributed under the terms of the GNU General Public License version 2 or (at your option) any later version. For the full license, see [LICENSE](./LICENSE).
 
 ### Changelog
 
